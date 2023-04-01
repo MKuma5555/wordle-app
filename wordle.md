@@ -5,7 +5,7 @@
 This is my first project to create "Wordle Game"
 Wardle itself is such a simple game However It was very hard to create for me.
 
-# What are the my Wordle rules?
+# My Wordle rules?
 
 * To submit a guess, type any five-letter word and press enter.
 * You have to guess the Wordle "Word" in six times or less
