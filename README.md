@@ -57,6 +57,8 @@ else{
 ````````````````````````````
 
 # wanted add more structure
-Add animations!!!
-Also pop up message not use prompt.
-
+  
+* Add animations!!!
+* Also pop up message not use prompt.
+*  create boxes use Javascript instead HTML
+  
