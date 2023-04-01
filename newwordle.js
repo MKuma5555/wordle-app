@@ -26,12 +26,12 @@ function addLetter(key){
 }
 
 
-function onKeyboardClick(keyElement){
+function onKeyboardClick(keyElement){//keyboard key click, push into current box.
     let key = keyElement.textContent;
 
-    if (key === "⌫") {
+    if (key === "⌫") {//Back space key
         console.log('pressed delete')
-        deleteLetter()//return
+        deleteLetter()//delete function work 
     }
 
     else if (key=== "⏎ Enter") {
@@ -40,16 +40,16 @@ function onKeyboardClick(keyElement){
             console.log(currentGuess);
             return;
             }   
-        else if(currentGuess.length===5){
+        else if(currentGuess.length===5){//if the guess word length = 5 length 
              if(!validWords.includes(currentGuess.join(''))){//currentGuess is array(5 elements) make it ane string and check if match with the word list
-                 alert('NOT IN WORD LIST')
+                 alert('NOT IN WORD LIST')//check the word is in the wordle word list
                 
                   }else{
-                    checkGuessWord()
+                    checkGuessWord()//check guess word function
                  }
 
         }}
-    else {
+    else {//other type of key work
         if(currentGuess.length < 5){//stop from going over 5 letters.
             currentGuess.push(key)//add letter to guess array.
             addLetter(key)//add letter to fieldGrid.
@@ -57,21 +57,19 @@ function onKeyboardClick(keyElement){
             return;
         }
         return;
-        //alert('press enter key')
-        console.log('press enter')
+
     } 
 
 }
 
 
-function keyboardWork(){
-    //let currentRowPosition=document.querySelectorAll('#F0 > .field');
+function keyboardWork(){//keyboard 
     let keyBtn = document.getElementsByClassName('key');
     
-    for (let keyElement of keyBtn) { 
+    for (let keyElement of keyBtn) { //get "key"element innerText value
        // console.log(keyElement.textContent);       
         keyElement.addEventListener('click',()=>{
-            onKeyboardClick(keyElement)})
+            onKeyboardClick(keyElement)})//click any "key" button the letter push into current box
     }
     }
      keyboardWork();
@@ -81,19 +79,19 @@ function keyboardWork(){
 
 
  function deleteLetter(){
-    if(currentColPosition>0){
-        currentGuess.pop();   
+    if(currentColPosition>0){// If current box is 0 position 
+        currentGuess.pop();   //pop off last array (letter)
         currentColPosition--;
-        addLetter('');
+        addLetter('');//empty current box 
         console.log(currentGuess,currentColPosition)//check the current Guess array word & position of col
 }}
 
 
-function correctWord(){
+function correctWord(){//winner
     console.log('Congratulations!!!');
     alert("Congratulation!!! 🍻")
 }
-function incorrectWord(){
+function incorrectWord(){//player still have chance to guess
     console.log('incorrect try again')
     alert('Incorrect guess try again ✍🏽')
 

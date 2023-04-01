@@ -56,6 +56,32 @@ else{
    }
 ````````````````````````````
 
+
+
+
 # wanted add more structure
-Add animations!!!
-Also pop up message not use prompt.
+
+* Add animations!!!
+* Also pop up message not use prompt.
+* create boxes use js instead HTML
+
+
+## How you found the project?
+
+I was unable to finish this project without instructors help.
+Once finished hard part it was fun to add more small changes.
+
+anything you are proud of
+## struggles you faced and how you went about solving them
+* First struggle to get Row/Column position.
+* Second,connected key click and letter push into Box.
+* make it stop first row and going to next row.
+* once I could set up Row, able tp pick guess word as array.
+  
+
+# Lessons learned
+
+
+
+
+
