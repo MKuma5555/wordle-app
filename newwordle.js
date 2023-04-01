@@ -26,6 +26,8 @@ function addLetter(key){
 }
 
 
+
+
 function onKeyboardClick(keyElement){//keyboard key click, push into current box.
     let key = keyElement.textContent;
 
@@ -127,6 +129,22 @@ function playAgain(){ // Remove class from each element
 
 
 
+//checkGuess
+// Makes sure the guess is 5 letters
+// Makes sure the guess is a valid list
+// Checks each letter of the word and shades them
+// Tells the player about the end of the game
+// Tells the player if they retry or not
+// checkGuess uses a simple algorithm to decide what color to shade each letter:
+
+// 1)Checks if the letter is in the correct word
+// 2)If the letter is in the word list & the right position,turns green
+// 3)If the letter is in the word, but wrong position turns Yellow
+// 2)Else shades letter grey
+// 3)If word correct 100%(correct 5 letters)
+// 4)Correct words less than 5
+// 5)How many times tried? if 6 times missed Game over
+// 6)Try again option 
 
 
 
