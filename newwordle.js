@@ -58,7 +58,10 @@ function onKeyboardClick(keyElement){//keyboard key click, push into current box
             currentColPosition++;
             return;
         }
-        return;
+        else {
+            alert("Press enter and check your word")
+            return;
+        }
 
     } 
 
