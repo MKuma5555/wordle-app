@@ -3,7 +3,8 @@
 ## first my project1
 
 This is my first project to create "Wordle Game"
-Wardle itself is such a simple game However It was very hard to create for me.
+Wardle itself is such a simple game. However,This is the first project out 4 of for General Assembly Software Engineering Intensive Course. 
+Please try to play [Play from here "Wordle link"](https://MKuma5555.github.io/wordle-app/wordle.html)
 
 # What are the my Wordle rules?
 
