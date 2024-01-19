@@ -1,101 +1,177 @@
+//create filed
+function createEachRow () {
+    const filedDiv = document.getElementById("game");
+
+    for(let i = 1; i <= 6; i++){
+        let eachRow = document.createElement("div");
+        eachRow.setAttribute("class","fieldBox");
+        eachRow.setAttribute("id",`F${i}`)
+
+        for(let j = 1; j <= 5; j++){
+            let eachFiled = document.createElement("div");
+            eachFiled.setAttribute("class","field");
+            eachRow.appendChild(eachFiled)
+        }
+        filedDiv.appendChild(eachRow)
+    }
+};
+
+//create keyboard
+function createKeyboard () {
+    const keyboardDiv = document.getElementById("keyboard");
+
+    const line1 = ["q","w","e","r","t","y","u","i","o","p"];
+    const line2 = ["a","s","d","f","g","h","j","k","l"];
+    const line3 = ["⏎ Enter","z","x","c","v","b","n","m","⌫"];
+
+    const mainSection = () => {
+        for(let i = 0; i < 3; i++){
+            let eachRowKeyboard = document.createElement("div");
+            eachRowKeyboard.setAttribute("class","row");
+            eachRowKeyboard.setAttribute("id",`row-${i}`);
+            keyboardDiv.appendChild(eachRowKeyboard)
+        } 
+    }  
+    mainSection()   
+
+    const addButtonsToRow = (line,rowId) => {
+        for (let j = 0; j < line.length; j++) {
+            const createButton = document.createElement("button");
+            createButton.setAttribute("class", "key");
+            createButton.setAttribute("id", `${line[j].toUpperCase()}`);
+            createButton.innerHTML = `${line[j].toUpperCase()}`;
+            if (line[j] !== "⏎ ENTER" && line[j] !== "⌫") {
+                createButton.setAttribute("class", "key");
+            };
+            document.getElementById(`row-${rowId}`).appendChild(createButton);
+        }
+        
+    };
+
+    addButtonsToRow(line1,0);
+    addButtonsToRow(line2,1);
+    addButtonsToRow(line3,2);
+}
+
+//Create pop up Div box
+function instractionBox () {
+    const infoDiv = document.getElementById("gameInfo");
+    const closeBtn = document.getElementById("closeBtn");
+
+    closeBtn.addEventListener('click',() => {
+        infoDiv.style.display = 'none';
+    });
+
+    const popupMsgBtn = document.getElementById("popupMsgBtn")
+    popupMsgBtn.addEventListener('click', () => {
+        infoDiv.style.display ='';  
+    });
+}
+
+document.getElementById("gameInfo").addEventListener("click", instractionBox);
 
 
+
+
+
+//keyboard 
 let currentColPosition=0;
 let currentRowPosition=0;
-let row=[];//
+let row=[];
 let currentGuess=[];
 
-
+ 
 let pickWord = validWords[Math.floor(Math.random() * validWords.length)];
 console.log(pickWord);
 
 
 function initializeRow(){
     let rows=document.querySelectorAll('.fieldBox');
-    row=rows[currentRowPosition];
-    console.log(row);//pick up which row
+    console.log('checking rows',rows)
+    row = rows[currentRowPosition];
+    console.log('checking row',row);//pick up which row
    
 }
 
 
+function initializeGame() {
+    createEachRow();
+    createKeyboard();
+    initializeRow();
+}
+initializeGame()
+
+
+
 function addLetter(key){
     let fieldBox=row.querySelectorAll(".field")
-    console.log(fieldBox[currentColPosition]);//column position
-    fieldBox[currentColPosition].textContent=key;//put text in field//
-
-}
-
+    console.log('add letter',fieldBox[currentColPosition]);//column position
+    fieldBox[currentColPosition].textContent = key;//put text in field//
+};
 
 
 
-function onKeyboardClick(keyElement){//keyboard key click, push into current box.
+function onKeyboardClick(keyElement) {
     let key = keyElement.textContent;
+    
+    console.log('this is key', key);
 
-    if (key === "⌫") {//Back space key
-        console.log('pressed delete')
-        deleteLetter()//delete function work 
-    }
-
-    else if (key=== "⏎ Enter") {
-        if(currentGuess.length<5){ //check enough letter in guess
-            alert("Not enough letter ☝🏽");
+    if (key === "⌫") {
+        console.log('pressed delete');
+        deleteLetter();
+    } else if (key === "⏎ ENTER") {
+        if (currentGuess.length < 5) {
+            alert("Not enough letters ☝🏽");
             console.log(currentGuess);
             return;
-            }   
-        else if(currentGuess.length===5){//if the guess word length = 5 length 
-             if(!validWords.includes(currentGuess.join(''))){//currentGuess is array(5 elements) make it ane string and check if match with the word list
-                 alert('NOT IN WORD LIST')//check the word is in the wordle word list
-                
-                  }else{
-                    checkGuessWord()//check guess word function
-                 }
-
-        }}
-    else {//other type of key work
-        if(currentGuess.length < 5){//stop from going over 5 letters.
-            currentGuess.push(key)//add letter to guess array.
-            addLetter(key)//add letter to fieldGrid.
+        } else if (currentGuess.length === 5) {
+            if (!validWords.includes(currentGuess.join(''))) {
+                alert('NOT IN WORD LIST');
+            } else {
+                checkGuessWord();
+            }
+        }
+    } else {
+        if (currentGuess.length < 5) {
+            currentGuess.push(key);
+            addLetter(key)
             currentColPosition++;
+        } else {
+            alert("You have already 5 letters, Press enter and check your word");
             return;
         }
-        else {
-            alert("Press enter and check your word")
-            return;
-        }
-
-    } 
-
+    };
 }
 
-
 function keyboardWork(){//keyboard 
-    let keyBtn = document.getElementsByClassName('key');
+    const keyBtn = document.getElementsByClassName('key');
+    const infoDiv = document.getElementById("gameInfo");
     
-    for (let keyElement of keyBtn) { //get "key"element innerText value
-       // console.log(keyElement.textContent);       
-        keyElement.addEventListener('click',()=>{
-            onKeyboardClick(keyElement)})//click any "key" button the letter push into current box
-    }
-    }
-     keyboardWork();
-     initializeRow();
+   
+        for (let keyElement of keyBtn) { //get "key"element innerText value
+            console.log('keyElement',keyElement.textContent);       
+            keyElement.addEventListener('click',()=>{
+                if(infoDiv.style.display !=='none'){
+                    return;
+                };
+                onKeyboardClick(keyElement)
+            })//click any "key" button the letter push into current box
+        }
+    
+   
+};
+keyboardWork();
 
-
-
-
- function deleteLetter(){
-    if(currentColPosition>0){// If current box is 0 position 
+function deleteLetter(){
+    if(currentColPosition > 0){// If current box is 0 position 
         currentGuess.pop();   //pop off last array (letter)
         currentColPosition--;
         addLetter('');//empty current box 
         console.log(currentGuess,currentColPosition)//check the current Guess array word & position of col
-}}
-
-
-function correctWord(){//winner
-    console.log('Congratulations!!!');
-    alert("Congratulation!!! 🍻")
+    }
 }
+
+
 function incorrectWord(){//player still have chance to guess
     console.log('incorrect try again')
     alert('Incorrect guess try again ✍🏽')
@@ -151,71 +227,66 @@ function playAgain(){ // Remove class from each element
 
 
 
-
+let correctCount = 0; 
 function checkGuessWord(){
-let correctCount=0;  //how many correct letters
+ //how many correct letters
 
-for(let i=0;i<5;i++){//pick up each letter from pickWord/currentGuess
-    let box=row.querySelectorAll(".field") 
-    let key=document.getElementsByClassName('key')
-   
-   
-if(pickWord[i]===currentGuess[i]){//checking if those two letters match.(check position)
-//turn box green
-    box[i].classList.add("green");
-    console.log('green')
+    for(let i = 0; i < 5; i++){//pick up each letter from pickWord/currentGuess
+        let box = row.querySelectorAll(".field") 
+        let key = document.getElementsByClassName('key')
     
-    updateKeyboardColor('green',currentGuess[i]);//changing keyboard color
-    correctCount++;
+        if(pickWord[i] === currentGuess[i]){//checking if those two letters match.(check position)
+    //turn box green
+            box[i].classList.add("green");
+            console.log('green')
+            updateKeyboardColor('green',currentGuess[i]);//changing keyboard color
+            correctCount++;
+
+        } else if(pickWord.includes(currentGuess[i])){//checks in the pickWord or not
+            //turn to yellow
+            console.log('yellow')
+            box[i].classList.add("yellow");
+            updateKeyboardColor('yellow',currentGuess[i]);
+        
+        } else {
+            //turn to grey
+            console.log('grey')
+            box[i].classList.add("grey");
+            updateKeyboardColor('grey',currentGuess[i]);
+        }  
+    }
+
+    if(correctCount === 5){//word is 100% match
+        // correctWord();
+        console.log('Congratulations!!!');
+        alert("Congratulation!!! 🍻")
+        return;
+
+    } else if (currentRowPosition < 5){//if they can guess again or not(Row is not last row or not?)
+        incorrectWord();
+        return;
+
+    } else {
+        console.log('game over')
+        alert('GAME OVER 💣')//incorrect word tried 6 times = game over
+    
+        //  setTimeout (function(){
+        //     confirm('Do you want to try again ⏰ ⁉️')},2000);
+
+    
+            let ask=confirm('Do you want to try again ⏰ ⁉️')
+            if(ask===true){
+            playAgain();}//if they want to restart 
+            return false;
+    };
 }
 
-else if(pickWord.includes(currentGuess[i])){//checks in the pickWord or not
-//turn to yellow
-    console.log('yellow')
-    box[i].classList.add("yellow");
-    updateKeyboardColor('yellow',currentGuess[i]);
- 
-}
-else{//turn to grey
-    console.log('grey')
-    box[i].classList.add("grey");
-    updateKeyboardColor('grey',currentGuess[i]);
-}  
 
-}
-if(correctCount===5){//word is 100% match
-    correctWord();
-    return
-  }
-  else if(currentRowPosition<5){//if they can guess again or not(Row is not last row or not?)
-    incorrectWord();
-    return
-  } 
-  else{
-    console.log('game over')
-    alert('GAME OVER 💣')//incorrect word tried 6 times = game over
-   
-    //  setTimeout (function(){
-    //     confirm('Do you want to try again ⏰ ⁉️')},2000);
-
- 
-        let ask=confirm('Do you want to try again ⏰ ⁉️')
-        if(ask===true){
-        playAgain();}//if they want to restart 
-        return false;
-         
-
-   }
-}
 
 
 
 function updateKeyboardColor(color,letter){//changing the keyboard color
-    let key=document.getElementById(letter)//get id ('xxx') from keyboard
-    key.className="key" //create new class name same as before but this is for overwrite(over changing the color)
+    console.log('updateKeyboardColor',color,letter)
+    let key = document.getElementById(letter.toUpperCase())//get id ('xxx') from keyboard
     key.classList.add(color)//add classlist 'green' 'yellow' 'grey'
-
-}
-
-
-
+};

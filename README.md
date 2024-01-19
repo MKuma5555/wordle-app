@@ -1,5 +1,5 @@
 # wordle-app
-![](https://i.pinimg.com/564x/24/0e/e0/240ee0ffbf9576e6e95ff52547b56d4a.jpg)
+![](./img/infoBox.png)
 ## first my project1
 
 This is my first project to create "Wordle Game"
@@ -35,31 +35,5 @@ Please try to play [Play from here "Wordle link"](https://MKuma5555.github.io/wo
 
 
 
-# Need to fix part
-If we confirm to play again, it is not showing last row result and delete all of data.
-Tried to set the "setTimeout" for confirm prompt.However,if i set as blow code couldn't set "if" to check true or false
 
-```````js
-else{
-    console.log('game over')
-    alert('GAME OVER 💣')//incorrect word tried 6 times = game over
-   
-    //  setTimeout (function(){
-    //     confirm('Do you want to try again ⏰ ⁉️')},2000);
-
- 
-        let ask=confirm('Do you want to try again ⏰ ⁉️')
-        if(ask===true){
-        playAgain();}//if they want to restart 
-        return false;
-         
-
-   }
-````````````````````````````
-
-# wanted add more structure
-  
-* Add animations!!!
-* Also pop up message not use prompt.
-*  create boxes use Javascript instead HTML
   
